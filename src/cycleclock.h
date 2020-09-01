@@ -124,7 +124,8 @@ inline BENCHMARK_ALWAYS_INLINE int64_t Now() {
   struct timespec ts = {0, 0};
   clock_gettime(CLOCK_MONOTONIC, &ts);
   return static_cast<int64_t>(ts.tv_sec) * 1000000000 + ts.tv_nsec;
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) || defined(__gptx__)
+
   // System timer of ARMv8 runs at a different frequency than the CPU's.
   // The frequency is fixed, typically in the range 1-50MHz.  It can be
   // read at CNTFRQ special register.  We assume the OS has set up
